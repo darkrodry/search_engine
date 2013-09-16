@@ -1,0 +1,1281 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>nFire</name>
+    </assembly>
+    <members>
+        <member name="T:nFire.Core.IDocument">
+            <summary>
+            A document.
+            </summary>
+        </member>
+        <member name="P:nFire.Core.IDocument.Id">
+            <summary>
+            Gets the document ID.
+            </summary>
+        </member>
+        <member name="T:nFire.Core.ISystem">
+            <summary>
+            A system.
+            </summary>
+        </member>
+        <member name="P:nFire.Core.ISystem.Id">
+            <summary>
+            Gets system ID.
+            </summary>
+        </member>
+        <member name="T:nFire.Core.IResult">
+            <summary>
+            The result of a system for a query.
+            </summary>
+        </member>
+        <member name="T:nFire.Core.ISetResult">
+            <summary>
+            A document retrieved by a system in set-based retrieval.
+            </summary>
+        </member>
+        <member name="P:nFire.Core.ISetResult.Document">
+            <summary>
+            Gets the document.
+            </summary>
+        </member>
+        <member name="P:nFire.Core.ISetResult.Score">
+            <summary>
+            Gets the score given to the document.
+            </summary>
+        </member>
+        <member name="T:nFire.Core.IListResult">
+            <summary>
+            A document retrieved by a system in list-based retrieval.
+            </summary>
+        </member>
+        <member name="P:nFire.Core.IListResult.Rank">
+            <summary>
+            Gets the rank given to the document.
+            </summary>
+        </member>
+        <member name="T:nFire.Evaluators.Binary.RPrecision">
+            <summary>
+            An evaluator for R-precision..
+            It is assumed that the results in the run are ordered by rank.
+            </summary>
+        </member>
+        <member name="T:nFire.Core.IEvaluator`2">
+            <summary>
+            An evaluator.
+            </summary>
+            <typeparam name="TScore">The type of results the evaluator works with.</typeparam>
+            <typeparam name="TResult">The type of the scores returned by the ealuator.</typeparam>
+        </member>
+        <member name="M:nFire.Core.IEvaluator`2.Evaluate(nFire.Core.IRun{`1},nFire.Core.IRun{`1})">
+            <summary>
+            Evaluates a system according to a ground truth.
+            </summary>
+            <param name="groundTruth">The ground truth.</param>
+            <param name="systemRun">The system run.</param>
+            <returns>The evaluation score.</returns>
+        </member>
+        <member name="P:nFire.Core.IEvaluator`2.ShortName">
+            <summary>
+            Gets the abbreviated name of the evaluator.
+            </summary>
+        </member>
+        <member name="P:nFire.Core.IEvaluator`2.FullName">
+            <summary>
+            Gets the full name of the evaluator.
+            </summary>
+        </member>
+        <member name="M:nFire.Evaluators.Binary.RPrecision.#ctor(System.Double)">
+            <summary>
+            Creates an evaluator for R-precision.
+            </summary>
+            <param name="minScore">The minimum score a judgment must have to be considered relevant.</param>
+        </member>
+        <member name="M:nFire.Evaluators.Binary.RPrecision.Evaluate(nFire.Core.IRun{nFire.Core.IListResult},nFire.Core.IRun{nFire.Core.IListResult})">
+            <summary>
+            Computes the RP score of the specified run according to the specified ground truth.
+            It is assumed that the results in the run are ordered by rank.
+            </summary>
+            <param name="groundTruth">The ground truth.</param>
+            <param name="systemRun">The system run.</param>
+            <returns>The RP score.</returns>
+        </member>
+        <member name="P:nFire.Evaluators.Binary.RPrecision.ShortName">
+            <summary>
+            Gets the abbreviated name of the evaluator: "RP".
+            </summary>
+        </member>
+        <member name="P:nFire.Evaluators.Binary.RPrecision.FullName">
+            <summary>
+            Gets the full name of the evaluator: "R-Precision".
+            </summary>
+        </member>
+        <member name="P:nFire.Evaluators.Binary.RPrecision.MinScore">
+            <summary>
+            Gets and sets the minimum score a judgment must have to be considered relevant.
+            </summary>
+        </member>
+        <member name="T:nFire.Base.System">
+            <summary>
+            A base system.
+            </summary>
+        </member>
+        <member name="M:nFire.Base.System.#ctor(System.String)">
+            <summary>
+            Creates a base system with the specified ID.
+            </summary>
+            <param name="id">The ID of the new system.</param>
+        </member>
+        <member name="M:nFire.Base.System.CompareTo(nFire.Core.ISystem)">
+            <summary>
+            Compares this system to the specified system, according to their IDs.
+            </summary>
+            <param name="other">A system to compare.</param>
+            <returns>A signed number indicating the relative other of this system with respect to the specified system.</returns>
+        </member>
+        <member name="P:nFire.Base.System.Id">
+            <summary>
+            Gets the system ID.
+            </summary>
+        </member>
+        <member name="T:nFire.Base.SystemCollection">
+            <summary>
+            A collection of base systems.
+            </summary>
+        </member>
+        <member name="T:nFire.Base.ItemCollection`1">
+            <summary>
+            A generic collection of identifiable items such as documents, queries or systems.
+            </summary>
+            <typeparam name="T">The type of items in the collection.</typeparam>
+        </member>
+        <member name="T:nFire.Core.IItemCollection`1">
+            <summary>
+            A collection of identifiable items such as documents, queries or systems.
+            </summary>
+            <typeparam name="T">The type of items in the collection.</typeparam>
+        </member>
+        <member name="M:nFire.Core.IItemCollection`1.Contains(System.String)">
+            <summary>
+            Determines whether the collection contains an item with the specified ID.
+            </summary>
+            <param name="id">The ID of the item to locate.</param>
+            <returns>true if the collection contains an item with the specified ID; false otherwise.</returns>
+        </member>
+        <member name="P:nFire.Core.IItemCollection`1.Name">
+            <summary>
+            Gets the name of the collection.
+            </summary>
+        </member>
+        <member name="P:nFire.Core.IItemCollection`1.Item(System.String)">
+            <summary>
+            Gets the item with the specified ID.
+            </summary>
+            <param name="id">The ID of the item to get.</param>
+            <returns>The item with the specified ID.</returns>
+        </member>
+        <member name="P:nFire.Core.IItemCollection`1.Count">
+            <summary>
+            Gets the number of elements in the collection.
+            </summary>
+        </member>
+        <member name="M:nFire.Base.ItemCollection`1.#ctor(System.String)">
+            <summary>
+            Creates a new generic item collection with the specified name.
+            </summary>
+            <param name="name">The name of the item collection.</param>
+        </member>
+        <member name="M:nFire.Base.ItemCollection`1.Contains(System.String)">
+            <summary>
+            Determines whether the collection contains an item with the specified ID.
+            </summary>
+            <param name="id">The ID of the item to locate.</param>
+            <returns>true if the collection contains an item with the specified ID; false otherwise.</returns>
+        </member>
+        <member name="M:nFire.Base.ItemCollection`1.GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates thought the item collection.
+            </summary>
+            <returns>An enumerator to iterate through the collection</returns>
+        </member>
+        <member name="M:nFire.Base.ItemCollection`1.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates thought the item collection.
+            </summary>
+            <returns>An enumerator to iterate through the collection</returns>
+        </member>
+        <member name="P:nFire.Base.ItemCollection`1.Items">
+            <summary>
+            An internal dictionary to store items indexed by their ID.
+            </summary>
+        </member>
+        <member name="P:nFire.Base.ItemCollection`1.Name">
+            <summary>
+            Gets or sets the name of the item collection.
+            </summary>
+        </member>
+        <member name="P:nFire.Base.ItemCollection`1.Item(System.String)">
+            <summary>
+            Gets the item with the specified ID.
+            </summary>
+            <param name="id">The ID of the item to get.</param>
+            <returns>The item with the specified ID.</returns>
+        </member>
+        <member name="P:nFire.Base.ItemCollection`1.Count">
+            <summary>
+            Gets the number of elements in the collection.
+            </summary>
+        </member>
+        <member name="P:nFire.Base.SystemCollection.Item(System.String)">
+            <summary>
+            Gets the system with the specified ID.
+            </summary>
+            <param name="id">The ID of the system to get.</param>
+            <returns>The system with the specified ID.</returns>
+        </member>
+        <member name="T:nFire.Base.SetResult">
+            <summary>
+            A base judgment of a document for a query in set-based retrieval. 
+            </summary>
+        </member>
+        <member name="M:nFire.Base.SetResult.#ctor(nFire.Core.IDocument,System.Double)">
+            <summary>
+            Creates a new result for a document.
+            </summary>
+            <param name="document">The document retrieved.</param>
+            <param name="score">The score given to the document.</param>
+        </member>
+        <member name="P:nFire.Base.SetResult.Document">
+            <summary>
+            Gets the document.
+            </summary>
+        </member>
+        <member name="P:nFire.Base.SetResult.Score">
+            <summary>
+            Gets the score given to the document.
+            </summary>
+        </member>
+        <member name="T:nFire.Base.ListResult">
+            <summary>
+            A base judgment of a document for a query in list-based retrieval. 
+            </summary>
+        </member>
+        <member name="M:nFire.Base.ListResult.#ctor(nFire.Core.IDocument,System.Double,System.Int32)">
+            <summary>
+            Creates a new result for a document.
+            </summary>
+            <param name="document">The document retrieved.</param>
+            <param name="score">The score given to the document.</param>
+            <param name="rank">The rank at which the document was retrieved.</param>
+        </member>
+        <member name="P:nFire.Base.ListResult.Rank">
+            <summary>
+            Gets the rank at which the document was retrieved.
+            </summary>
+        </member>
+        <member name="T:nFire.Base.Query">
+            <summary>
+            A base query.
+            </summary>
+        </member>
+        <member name="T:nFire.Core.IQuery">
+            <summary>
+            A query or topic.
+            </summary>
+        </member>
+        <member name="P:nFire.Core.IQuery.Id">
+            <summary>
+            Gets the topic ID.
+            </summary>
+        </member>
+        <member name="M:nFire.Base.Query.#ctor(System.String)">
+            <summary>
+            Creates a base query with the specified ID.
+            </summary>
+            <param name="id">The ID of the new query.</param>
+        </member>
+        <member name="M:nFire.Base.Query.CompareTo(nFire.Core.IQuery)">
+            <summary>
+            Compares this query to the specified query, according to their IDs.
+            </summary>
+            <param name="other">A query to compare.</param>
+            <returns>A signed number indicating the relative other of this query with respect to the specified query.</returns>
+        </member>
+        <member name="P:nFire.Base.Query.Id">
+            <summary>
+            Gets the query ID.
+            </summary>
+        </member>
+        <member name="T:nFire.Base.QueryCollection">
+            <summary>
+            A collection of base queries.
+            </summary>
+        </member>
+        <member name="P:nFire.Base.QueryCollection.Item(System.String)">
+            <summary>
+            Gets the query with the specified ID.
+            </summary>
+            <param name="id">The ID of the query to get.</param>
+            <returns>The query with the specified ID.</returns>
+        </member>
+        <member name="T:nFire.Base.Document">
+            <summary>
+            A base document.
+            </summary>
+        </member>
+        <member name="M:nFire.Base.Document.#ctor(System.String)">
+            <summary>
+            Creates a base document with the specified ID.
+            </summary>
+            <param name="id">The ID of the new document.</param>
+        </member>
+        <member name="M:nFire.Base.Document.CompareTo(nFire.Core.IDocument)">
+            <summary>
+            Compares this document to the specified document, according to their IDs.
+            </summary>
+            <param name="other">A document to compare.</param>
+            <returns>A signed number indicating the relative other of this document with respect to the specified document.</returns>
+        </member>
+        <member name="P:nFire.Base.Document.Id">
+            <summary>
+            Gets the document ID.
+            </summary>
+        </member>
+        <member name="T:nFire.Base.DocumentCollection">
+            <summary>
+            A collection of base documents.
+            </summary>
+        </member>
+        <member name="P:nFire.Base.DocumentCollection.Item(System.String)">
+            <summary>
+            Gets the document with the specified ID.
+            </summary>
+            <param name="id">The ID of the document to get.</param>
+            <returns>The document with the specified ID.</returns>
+        </member>
+        <member name="T:nFire.Evaluators.Graded.DcgDiscountFunction">
+            <summary>
+            Specifies a function to discount the document gains for the calculation of DCG scores.
+            </summary>
+        </member>
+        <member name="F:nFire.Evaluators.Graded.DcgDiscountFunction.Original">
+            <summary>
+            The original function as in Järveling &amp;Kekäläinen, ACM TOIS, 2002: 1 if i&lt;b or 1/log_b(i) if i&lt;=b.
+            </summary>
+        </member>
+        <member name="F:nFire.Evaluators.Graded.DcgDiscountFunction.Microsoft">
+            <summary>
+            The function introduced by Microsoft: 1/log_b(i+1)
+            </summary>
+        </member>
+        <member name="T:nFire.Evaluators.Graded.DiscountedCumulatedGain">
+            <summary>
+            An evaluator for discounted cumulated gain and discounted cumulated gain after k documents retrieved (discounted-cumulated-gain@k).
+            For discounted-cumulated-gain@k it is assumed that the results in the run are ordered by rank.
+            </summary>
+        </member>
+        <member name="M:nFire.Evaluators.Graded.DiscountedCumulatedGain.#ctor(nFire.Evaluators.Graded.DcgDiscountFunction,System.Double,System.Double,System.Nullable{System.Int32})">
+            <summary>
+            Creates an evaluator for discounted cumulated gain and discounted-cumulated-gain@k.
+            </summary>
+            <param name="discountFunction">The discount function to lower gains.</param>
+            <param name="minScore">The minimum gain a judgment must have to contribute to the score.</param>
+            <param name="logBase">The base of the logarithm for the discount function.</param>
+            <param name="cutoff">The cut-off k for discounted-cumulated-gain@k.</param>
+        </member>
+        <member name="M:nFire.Evaluators.Graded.DiscountedCumulatedGain.Evaluate(nFire.Core.IRun{nFire.Core.IListResult},nFire.Core.IRun{nFire.Core.IListResult})">
+            <summary>
+            Computes the DCG@k score of the specified run according to the specified ground truth.
+            It is assumed that the results in the run are ordered by rank.
+            </summary>
+            <param name="groundTruth">The ground truth.</param>
+            <param name="systemRun">The system run.</param>
+            <returns>The DCG@k score.</returns>
+        </member>
+        <member name="P:nFire.Evaluators.Graded.DiscountedCumulatedGain.ShortName">
+            <summary>
+            Gets the abbreviated name of the evaluator: "DCG" or "DCG@k".
+            </summary>
+        </member>
+        <member name="P:nFire.Evaluators.Graded.DiscountedCumulatedGain.FullName">
+            <summary>
+            Gets the full name of the evaluator: "Discounted Cumulated Gain" or "Discounted Cumulated Gain at k".
+            </summary>
+        </member>
+        <member name="P:nFire.Evaluators.Graded.DiscountedCumulatedGain.MinScore">
+            <summary>
+            Gets and sets the minimum gain a judgment must have to contribute to the score.
+            </summary>
+        </member>
+        <member name="P:nFire.Evaluators.Graded.DiscountedCumulatedGain.Cutoff">
+            <summary>
+            Gets and sets the cut-off k for discounted-cumulated-gain@k. If null, discounted cumulated gain is computed, with not cut-off.
+            </summary>
+        </member>
+        <member name="P:nFire.Evaluators.Graded.DiscountedCumulatedGain.LogBase">
+            <summary>
+            Gets and sets the base of the logarithm for the discount function.
+            </summary>
+        </member>
+        <member name="P:nFire.Evaluators.Graded.DiscountedCumulatedGain.DiscountFunction">
+            <summary>
+            The function to use when discounting a document's gain.
+            </summary>
+        </member>
+        <member name="T:nFire.Evaluators.Graded.AverageGain">
+            <summary>
+            An evaluator for average gain and average gain after k documents retrieved (average-gain@k).
+            For average-gain@k it is assumed that the results in the run are ordered by rank.
+            </summary>
+        </member>
+        <member name="M:nFire.Evaluators.Graded.AverageGain.#ctor(System.Double,System.Nullable{System.Int32})">
+            <summary>
+            Creates an evaluator for average gain and average-gain@k.
+            </summary>
+            <param name="minScore">The minimum gain a judgment must have to contribute to the score.</param>
+            <param name="cutoff">The cut-off k for average-gain@k.</param>
+        </member>
+        <member name="M:nFire.Evaluators.Graded.AverageGain.Evaluate(nFire.Core.IRun{nFire.Core.ISetResult},nFire.Core.IRun{nFire.Core.ISetResult})">
+            <summary>
+            Computes the AG score of the specified run according to the specified ground truth.
+            </summary>
+            <param name="groundTruth">The ground truth.</param>
+            <param name="systemRun">The system run.</param>
+            <returns>The AG score.</returns>
+        </member>
+        <member name="M:nFire.Evaluators.Graded.AverageGain.Evaluate(nFire.Core.IRun{nFire.Core.IListResult},nFire.Core.IRun{nFire.Core.IListResult})">
+            <summary>
+            Computes the AG@k score of the specified run according to the specified ground truth.
+            It is assumed that the results in the run are ordered by rank.
+            </summary>
+            <param name="groundTruth">The ground truth.</param>
+            <param name="systemRun">The system run.</param>
+            <returns>The AG@k score.</returns>
+        </member>
+        <member name="M:nFire.Evaluators.Graded.AverageGain.Evaluate(nFire.Core.IRun{nFire.Core.ISetResult},nFire.Core.IRun{nFire.Core.ISetResult},System.Double,System.Int32)">
+            <summary>
+            Computes the AG@k score of the specified run according to the specified ground truth, with the specified minimum relevance score and for the specified cut-off.
+            It is assumed that the results in the run are ordered by rank.
+            </summary>
+            <param name="groundTruth">The ground truth.</param>
+            <param name="systemRun">The system run.</param>
+            <param name="minScore">The minimum gain.</param>
+            <param name="cutOff">The cut-off.</param>
+            <returns>The AG@k score.</returns>
+        </member>
+        <member name="P:nFire.Evaluators.Graded.AverageGain.ShortName">
+            <summary>
+            Gets the abbreviated name of the evaluator: "AG" or "AG@k".
+            </summary>
+        </member>
+        <member name="P:nFire.Evaluators.Graded.AverageGain.FullName">
+            <summary>
+            Gets the full name of the evaluator: "Average Gain" or "Average Gain at k".
+            </summary>
+        </member>
+        <member name="P:nFire.Evaluators.Graded.AverageGain.MinScore">
+            <summary>
+            Gets and sets the minimum gain a judgment must have to contribute to the score.
+            </summary>
+        </member>
+        <member name="P:nFire.Evaluators.Graded.AverageGain.Cutoff">
+            <summary>
+            Gets and sets the cut-off k for average-gain@k. If null, average gain is computed, with not cut-off.
+            </summary>
+        </member>
+        <member name="P:nFire.Evaluators.Graded.AverageGain.CG">
+            <summary>
+            Gets or sets the auxiliary CG evaluator used to compute AG.
+            </summary>
+        </member>
+        <member name="T:nFire.Evaluators.Binary.Precision">
+            <summary>
+            An evaluator for precision and precision after k documents retrieved (precision@k).
+            For precision@k it is assumed that the results in the run are ordered by rank.
+            </summary>
+        </member>
+        <member name="M:nFire.Evaluators.Binary.Precision.#ctor(System.Double,System.Nullable{System.Int32})">
+            <summary>
+            Creates an evaluator for precision and precision@k.
+            </summary>
+            <param name="minScore">The minimum score a judgment must have to be considered relevant.</param>
+            <param name="cutoff">The cut-off k for precision@k.</param>
+        </member>
+        <member name="M:nFire.Evaluators.Binary.Precision.Evaluate(nFire.Core.IRun{nFire.Core.ISetResult},nFire.Core.IRun{nFire.Core.ISetResult})">
+            <summary>
+            Computes the P score of the specified run according to the specified ground truth.
+            </summary>
+            <param name="groundTruth">The ground truth.</param>
+            <param name="systemRun">The system run.</param>
+            <returns>The P score.</returns>
+        </member>
+        <member name="M:nFire.Evaluators.Binary.Precision.Evaluate(nFire.Core.IRun{nFire.Core.IListResult},nFire.Core.IRun{nFire.Core.IListResult})">
+            <summary>
+            Computes the P@k score of the specified run according to the specified ground truth.
+            It is assumed that the results in the run are ordered by rank.
+            </summary>
+            <param name="groundTruth">The ground truth.</param>
+            <param name="systemRun">The system run.</param>
+            <returns>The P@k score.</returns>
+        </member>
+        <member name="M:nFire.Evaluators.Binary.Precision.Evaluate(nFire.Core.IRun{nFire.Core.ISetResult},nFire.Core.IRun{nFire.Core.ISetResult},System.Double,System.Int32)">
+            <summary>
+            Computes the P@k score of the specified run according to the specified ground truth, with the specified minimum relevance score and for the specified cut-off.
+            It is assumed that the results in the run are ordered by rank.
+            </summary>
+            <param name="groundTruth">The ground truth.</param>
+            <param name="systemRun">The system run.</param>
+            <param name="minScore">The minimum relevance score.</param>
+            <param name="cutOff">The cut-off.</param>
+            <returns>The P@k score.</returns>
+        </member>
+        <member name="P:nFire.Evaluators.Binary.Precision.ShortName">
+            <summary>
+            Gets the abbreviated name of the evaluator: "P" or "P@k".
+            </summary>
+        </member>
+        <member name="P:nFire.Evaluators.Binary.Precision.FullName">
+            <summary>
+            Gets the full name of the evaluator: "Precision" or "Precision at k".
+            </summary>
+        </member>
+        <member name="P:nFire.Evaluators.Binary.Precision.MinScore">
+            <summary>
+            Gets and sets the minimum score a judgment must have to be considered relevant.
+            </summary>
+        </member>
+        <member name="P:nFire.Evaluators.Binary.Precision.Cutoff">
+            <summary>
+            Gets and sets the cut-off k for precision@k. If null, precision is computed, with not cut-off.
+            </summary>
+        </member>
+        <member name="T:nFire.Evaluators.Binary.Recall">
+            <summary>
+            An evaluator for recall and recall after k documents retrieved (recall@k).
+            For recall@k it is assumed that the results in the run are ordered by rank.
+            </summary>
+        </member>
+        <member name="M:nFire.Evaluators.Binary.Recall.#ctor(System.Double,System.Nullable{System.Int32})">
+            <summary>
+            Creates an evaluator for recall and recall@k.
+            </summary>
+            <param name="minScore">The minimum score a judgment must have to be considered relevant.</param>
+            <param name="cutoff">The cut-off k for recall@k.</param>
+        </member>
+        <member name="M:nFire.Evaluators.Binary.Recall.Evaluate(nFire.Core.IRun{nFire.Core.ISetResult},nFire.Core.IRun{nFire.Core.ISetResult})">
+            <summary>
+            Computes the R score of the specified run according to the specified ground truth.
+            </summary>
+            <param name="groundTruth">The ground truth.</param>
+            <param name="systemRun">The system run.</param>
+            <returns>The R score.</returns>
+        </member>
+        <member name="M:nFire.Evaluators.Binary.Recall.Evaluate(nFire.Core.IRun{nFire.Core.IListResult},nFire.Core.IRun{nFire.Core.IListResult})">
+            <summary>
+            Computes the R@k score of the specified run according to the specified ground truth.
+            It is assumed that the results in the run are ordered by rank.
+            </summary>
+            <param name="groundTruth">The ground truth.</param>
+            <param name="systemRun">The system run.</param>
+            <returns>The R@k score.</returns>
+        </member>
+        <member name="M:nFire.Evaluators.Binary.Recall.Evaluate(nFire.Core.IRun{nFire.Core.ISetResult},nFire.Core.IRun{nFire.Core.ISetResult},System.Double,System.Int32)">
+            <summary>
+            Computes the R@k score of the specified run according to the specified ground truth, with the specified minimum relevance score and for the specified cut-off.
+            It is assumed that the results in the run are ordered by rank.
+            </summary>
+            <param name="groundTruth">The ground truth.</param>
+            <param name="systemRun">The system run.</param>
+            <param name="minScore">The minimum relevance score.</param>
+            <param name="cutOff">The cut-off.</param>
+            <returns>The R@k score.</returns>
+        </member>
+        <member name="P:nFire.Evaluators.Binary.Recall.ShortName">
+            <summary>
+            Gets the abbreviated name of the evaluator: "R" or "R@k".
+            </summary>
+        </member>
+        <member name="P:nFire.Evaluators.Binary.Recall.FullName">
+            <summary>
+            Gets the full name of the evaluator: "Recall" or "Recall at k".
+            </summary>
+        </member>
+        <member name="P:nFire.Evaluators.Binary.Recall.MinScore">
+            <summary>
+            Gets and sets the minimum score a judgment must have to be considered relevant.
+            </summary>
+        </member>
+        <member name="P:nFire.Evaluators.Binary.Recall.Cutoff">
+            <summary>
+            Gets and sets the cut-off k for recall@k. If null, recall is computed, with not cut-off.
+            </summary>
+        </member>
+        <member name="T:nFire.Base.Run`1">
+            <summary>
+            A base list of judgments made by a retrieval system for a particular query.
+            </summary>
+        </member>
+        <member name="T:nFire.Core.IRun`1">
+            <summary>
+            A run made by a system for a particular query.
+            </summary>
+            <typeparam name="T">The type of results in the run.</typeparam>
+        </member>
+        <member name="P:nFire.Core.IRun`1.Query">
+            <summary>
+            Gets the query that the run is related to.
+            </summary>
+        </member>
+        <member name="P:nFire.Core.IRun`1.System">
+            <summary>
+            Gets the system that made the run.
+            </summary>
+        </member>
+        <member name="P:nFire.Core.IRun`1.Count">
+            <summary>
+            Returns the number of judgments in the run.
+            </summary>
+        </member>
+        <member name="M:nFire.Base.Run`1.#ctor(nFire.Core.IQuery,nFire.Core.ISystem)">
+            <summary>
+            Creates a new base run for the specified system and the specified query.
+            </summary>
+            <param name="query">The query.</param>
+            <param name="system">The system.</param>
+        </member>
+        <member name="M:nFire.Base.Run`1.Add(`0)">
+            <summary>
+            Adds the specified result to the run.
+            </summary>
+            <param name="t">The result to add.</param>
+        </member>
+        <member name="M:nFire.Base.Run`1.GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates thought the results in the run.
+            </summary>
+            <returns>An enumerator to iterate through the run</returns>
+        </member>
+        <member name="M:nFire.Base.Run`1.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates thought the results in the run.
+            </summary>
+            <returns>An enumerator to iterate through the run</returns>
+            <returns>An enumerator to iterate through the collection</returns>
+        </member>
+        <member name="P:nFire.Base.Run`1.Query">
+            <summary>
+            Gets and sets the query that the run is related to.
+            </summary>
+        </member>
+        <member name="P:nFire.Base.Run`1.System">
+            <summary>
+            Gets and sets the system that made the run.
+            </summary>
+        </member>
+        <member name="P:nFire.Base.Run`1.Results">
+            <summary>
+            Gets or sets the list of results in the run.
+            </summary>
+        </member>
+        <member name="P:nFire.Base.Run`1.Count">
+            <summary>
+            Returns the number of results in the run.
+            </summary>
+        </member>
+        <member name="T:nFire.Evaluators.Graded.CumulatedGain">
+            <summary>
+            An evaluator for cumulated gain and cumulated gain after k documents retrieved (cumulated-gain@k).
+            For cumulated-gain@k it is assumed that the results in the run are ordered by rank.
+            </summary>
+        </member>
+        <member name="M:nFire.Evaluators.Graded.CumulatedGain.#ctor(System.Double,System.Nullable{System.Int32})">
+            <summary>
+            Creates an evaluator for cumulated gain and cumulated-gain@k.
+            </summary>
+            <param name="minScore">The minimum gain a judgment must have to contribute to the score.</param>
+            <param name="cutoff">The cut-off k for cumulated-gain@k.</param>
+        </member>
+        <member name="M:nFire.Evaluators.Graded.CumulatedGain.Evaluate(nFire.Core.IRun{nFire.Core.ISetResult},nFire.Core.IRun{nFire.Core.ISetResult})">
+            <summary>
+            Computes the CG score of the specified run according to the specified ground truth.
+            </summary>
+            <param name="groundTruth">The ground truth.</param>
+            <param name="systemRun">The system run.</param>
+            <returns>The CG score.</returns>
+        </member>
+        <member name="M:nFire.Evaluators.Graded.CumulatedGain.Evaluate(nFire.Core.IRun{nFire.Core.IListResult},nFire.Core.IRun{nFire.Core.IListResult})">
+            <summary>
+            Computes the CG@k score of the specified run according to the specified ground truth.
+            It is assumed that the results in the run are ordered by rank.
+            </summary>
+            <param name="groundTruth">The ground truth.</param>
+            <param name="systemRun">The system run.</param>
+            <returns>The CG@k score.</returns>
+        </member>
+        <member name="M:nFire.Evaluators.Graded.CumulatedGain.Evaluate(nFire.Core.IRun{nFire.Core.ISetResult},nFire.Core.IRun{nFire.Core.ISetResult},System.Double,System.Int32)">
+            <summary>
+            Computes the CG@k score of the specified run according to the specified ground truth, with the specified minimum relevance score and for the specified cut-off.
+            It is assumed that the results in the run are ordered by rank.
+            </summary>
+            <param name="groundTruth">The ground truth.</param>
+            <param name="systemRun">The system run.</param>
+            <param name="minScore">The minimum gain.</param>
+            <param name="cutOff">The cut-off.</param>
+            <returns>The CG@k score.</returns>
+        </member>
+        <member name="P:nFire.Evaluators.Graded.CumulatedGain.ShortName">
+            <summary>
+            Gets the abbreviated name of the evaluator: "CG" or "CG@k".
+            </summary>
+        </member>
+        <member name="P:nFire.Evaluators.Graded.CumulatedGain.FullName">
+            <summary>
+            Gets the full name of the evaluator: "Cumulated Gain" or "Cumulated Gain at k".
+            </summary>
+        </member>
+        <member name="P:nFire.Evaluators.Graded.CumulatedGain.MinScore">
+            <summary>
+            Gets and sets the minimum gain a judgment must have to contribute to the score.
+            </summary>
+        </member>
+        <member name="P:nFire.Evaluators.Graded.CumulatedGain.Cutoff">
+            <summary>
+            Gets and sets the cut-off k for cumulated-gain@k. If null, cumulated gain is computed, with not cut-off.
+            </summary>
+        </member>
+        <member name="T:nFire.Evaluators.Graded.NormalizedDiscountedCumulatedGain">
+            <summary>
+            An evaluator for normalized discounted cumulated gain and normalized discounted cumulated gain after k documents retrieved (normalized-discounted-cumulated-gain@k).
+            For normalized-discounted-cumulated-gain@k it is assumed that the results in the run are ordered by rank.
+            </summary>
+        </member>
+        <member name="M:nFire.Evaluators.Graded.NormalizedDiscountedCumulatedGain.#ctor(nFire.Evaluators.Graded.DcgDiscountFunction,System.Double,System.Double,System.Nullable{System.Int32})">
+            <summary>
+            Creates an evaluator for normalized discounted cumulated gain and normalized-discounted-cumulated-gain@k.
+            </summary>
+            <param name="discountFunction">The discount function to lower gains.</param>
+            <param name="minScore">The minimum gain a judgment must have to contribute to the score.</param>
+            <param name="logBase">The base of the logarithm for the discount function.</param>
+            <param name="cutoff">The cut-off k for normalized-discounted-cumulated-gain@k.</param>
+        </member>
+        <member name="M:nFire.Evaluators.Graded.NormalizedDiscountedCumulatedGain.Evaluate(nFire.Core.IRun{nFire.Core.IListResult},nFire.Core.IRun{nFire.Core.IListResult})">
+            <summary>
+            Computes the nDCG@k score of the specified run according to the specified ground truth.
+            It is assumed that the results in the run are ordered by rank.
+            </summary>
+            <param name="groundTruth">The ground truth.</param>
+            <param name="systemRun">The system run.</param>
+            <returns>The nDCG@k score.</returns>
+        </member>
+        <member name="P:nFire.Evaluators.Graded.NormalizedDiscountedCumulatedGain.ShortName">
+            <summary>
+            Gets the abbreviated name of the evaluator: "nDCG" or "nDCG@k".
+            </summary>
+        </member>
+        <member name="P:nFire.Evaluators.Graded.NormalizedDiscountedCumulatedGain.FullName">
+            <summary>
+            Gets the full name of the evaluator: "Normalized Discounted Cumulated Gain" or "Normalized Discounted Cumulated Gain at k".
+            </summary>
+        </member>
+        <member name="P:nFire.Evaluators.Graded.NormalizedDiscountedCumulatedGain.MinScore">
+            <summary>
+            Gets and sets the minimum gain a judgment must have to contribute to the score.
+            </summary>
+        </member>
+        <member name="P:nFire.Evaluators.Graded.NormalizedDiscountedCumulatedGain.Cutoff">
+            <summary>
+            Gets and sets the cut-off k for normalized-discounted-cumulated-gain@k. If null, normalized discounted cumulated gain is computed, with not cut-off.
+            </summary>
+        </member>
+        <member name="P:nFire.Evaluators.Graded.NormalizedDiscountedCumulatedGain.LogBase">
+            <summary>
+            Gets and sets the base of the logarithm for the discount function.
+            </summary>
+        </member>
+        <member name="P:nFire.Evaluators.Graded.NormalizedDiscountedCumulatedGain.DiscountFunction">
+            <summary>
+            The function to use when discounting a document's gain.
+            </summary>
+        </member>
+        <member name="P:nFire.Evaluators.Graded.NormalizedDiscountedCumulatedGain.DCG">
+            <summary>
+            Gets and sets the auxiliary DCG evaluator to compute nDCG;
+            </summary>
+        </member>
+        <member name="T:nFire.Evaluators.Binary.ReciprocalRank">
+            <summary>
+            An evaluator for reciprocal rank.
+            It is assumed that the results in the run are ordered by rank.
+            </summary>
+        </member>
+        <member name="M:nFire.Evaluators.Binary.ReciprocalRank.#ctor(System.Double)">
+            <summary>
+            Creates an evaluator for reciprocal rank.
+            </summary>
+            <param name="minScore">The minimum score a judgment must have to be considered relevant.</param>
+        </member>
+        <member name="M:nFire.Evaluators.Binary.ReciprocalRank.Evaluate(nFire.Core.IRun{nFire.Core.IListResult},nFire.Core.IRun{nFire.Core.IListResult})">
+            <summary>
+            Computes the RR score of the specified run according to the specified ground truth.
+            It is assumed that the results in the run are ordered by rank.
+            </summary>
+            <param name="groundTruth">The ground truth.</param>
+            <param name="systemRun">The system run.</param>
+            <returns>The RR score.</returns>
+        </member>
+        <member name="P:nFire.Evaluators.Binary.ReciprocalRank.ShortName">
+            <summary>
+            Gets the abbreviated name of the evaluator: "RR".
+            </summary>
+        </member>
+        <member name="P:nFire.Evaluators.Binary.ReciprocalRank.FullName">
+            <summary>
+            Gets the full name of the evaluator: "Reciprocal Rank".
+            </summary>
+        </member>
+        <member name="P:nFire.Evaluators.Binary.ReciprocalRank.MinScore">
+            <summary>
+            Gets and sets the minimum score a judgment must have to be considered relevant.
+            </summary>
+        </member>
+        <member name="T:nFire.Evaluators.Binary.InterpolatedPrecissionAtRecall">
+            <summary>
+            An evaluator for interpolated precision at recall levels.
+            It is assumed that the results in the run are ordered by rank.
+            </summary>
+            <remarks>Based on the implementation by Chris Buckley in trec_eval 9.1.</remarks>
+        </member>
+        <member name="M:nFire.Evaluators.Binary.InterpolatedPrecissionAtRecall.#ctor(System.Double,System.Double)">
+            <summary>
+            Creates an evaluator for interpolated precision at recall levels.
+            </summary>
+            <param name="minScore">The minimum score a judgment must have to be considered relevant.</param>
+            <param name="recallPoint">The recall point to calculate interpolated precision.</param>
+        </member>
+        <member name="M:nFire.Evaluators.Binary.InterpolatedPrecissionAtRecall.Evaluate(nFire.Core.IRun{nFire.Core.IListResult},nFire.Core.IRun{nFire.Core.IListResult})">
+            <summary>
+            Computes the iPR@k score of the specified run according to the specified ground truth.
+            It is assumed that the results in the run are ordered by rank.
+            </summary>
+            <param name="groundTruth">The ground truth.</param>
+            <param name="systemRun">The system run.</param>
+            <returns>The iPR@r score.</returns>
+        </member>
+        <member name="P:nFire.Evaluators.Binary.InterpolatedPrecissionAtRecall.ShortName">
+            <summary>
+            Gets the abbreviated name of the evaluator: "iPR@r".
+            </summary>
+        </member>
+        <member name="P:nFire.Evaluators.Binary.InterpolatedPrecissionAtRecall.FullName">
+            <summary>
+            Gets the full name of the evaluator: "Interpolated Precission at r Recall".
+            </summary>
+        </member>
+        <member name="P:nFire.Evaluators.Binary.InterpolatedPrecissionAtRecall.MinScore">
+            <summary>
+            Gets and sets the minimum score a judgment must have to be considered relevant.
+            </summary>
+        </member>
+        <member name="P:nFire.Evaluators.Binary.InterpolatedPrecissionAtRecall.RecallPoint">
+            <summary>
+            Gets and sets the recall point to calculate interpolated precision.
+            </summary>
+        </member>
+        <member name="T:nFire.Evaluators.Binary.AveragePrecision">
+            <summary>
+            An evaluator for average precision and average precision after k documents retrieved (average-precision@k).
+            For average-precision@k it is assumed that the results in the run are ordered by rank.
+            </summary>
+        </member>
+        <member name="M:nFire.Evaluators.Binary.AveragePrecision.#ctor(System.Double,System.Nullable{System.Int32})">
+            <summary>
+            Creates an evaluator for average precision and average-precision@k.
+            </summary>
+            <param name="minScore">The minimum score a judgment must have to be considered relevant.</param>
+            <param name="cutoff">The cut-off k for average-precision@k.</param>
+        </member>
+        <member name="M:nFire.Evaluators.Binary.AveragePrecision.Evaluate(nFire.Core.IRun{nFire.Core.IListResult},nFire.Core.IRun{nFire.Core.IListResult})">
+            <summary>
+            Computes the AP@k score of the specified run according to the specified ground truth.
+            It is assumed that the results in the run are ordered by rank.
+            </summary>
+            <param name="groundTruth">The ground truth.</param>
+            <param name="systemRun">The system run.</param>
+            <returns>The AP@k score.</returns>
+        </member>
+        <member name="P:nFire.Evaluators.Binary.AveragePrecision.ShortName">
+            <summary>
+            Gets the abbreviated name of the evaluator: "AP" or "AP@k".
+            </summary>
+        </member>
+        <member name="P:nFire.Evaluators.Binary.AveragePrecision.FullName">
+            <summary>
+            Gets the full name of the evaluator: "Average Precision" or "Average Precision at k".
+            </summary>
+        </member>
+        <member name="P:nFire.Evaluators.Binary.AveragePrecision.MinScore">
+            <summary>
+            Gets and sets the minimum score a judgment must have to be considered relevant.
+            </summary>
+        </member>
+        <member name="P:nFire.Evaluators.Binary.AveragePrecision.Cutoff">
+            <summary>
+            Gets and sets the cut-off k for average-precision@k. If null, average precision is computed, with not cut-off.
+            </summary>
+        </member>
+        <member name="T:nFire.Core.IRunReader`1">
+            <summary>
+            Reads runs with a particular format.
+            </summary>
+            <typeparam name="T">The type of results in the run.</typeparam>
+        </member>
+        <member name="M:nFire.Core.IRunReader`1.Read(System.String,nFire.Core.ITask{`0})">
+            <summary>
+            Reads runs from the specified file.
+            </summary>
+            <param name="path">The path to the file to read from.</param>
+            <param name="task">The task containing the documents, queries and systems.</param>
+            <returns>An enumerable with the runs read.</returns>
+        </member>
+        <member name="M:nFire.Core.IRunReader`1.Read(System.IO.Stream,nFire.Core.ITask{`0})">
+            <summary>
+            Reads runs from the specified stream.
+            </summary>
+            <param name="stream">The stream to read from.</param>
+            <param name="task">The task containing the documents, queries and systems.</param>
+            <returns>An enumerable with the runs read.</returns>
+        </member>
+        <member name="T:nFire.Core.IRunWriter`1">
+            <summary>
+            Writes runs with a particular format.
+            </summary>
+            <typeparam name="T">The type of results in the run.</typeparam>
+        </member>
+        <member name="M:nFire.Core.IRunWriter`1.Write(System.Collections.Generic.IEnumerable{nFire.Core.IRun{`0}},System.String)">
+            <summary>
+            Writes the specified runs to the specified file.
+            </summary>
+            <param name="runs">The runs to write.</param>
+            <param name="path">The path to the file.</param>
+        </member>
+        <member name="M:nFire.Core.IRunWriter`1.Write(System.Collections.Generic.IEnumerable{nFire.Core.IRun{`0}},System.IO.Stream)">
+            <summary>
+            Writes the specified runs to the specified file.
+            </summary>
+            <param name="runs">The runs to write.</param>
+            <param name="stream">The path to the file.</param>
+        </member>
+        <member name="T:nFire.Core.ITask`1">
+            <summary>
+            A testbed to analyze several systems for several queries.
+            </summary>
+        </member>
+        <member name="M:nFire.Core.ITask`1.AddGroundTruths(nFire.Core.IRunReader{`0},System.String)">
+            <summary>
+            Uses the specified reader to read runs from the specified file and adds them as ground truth .
+            </summary>
+            <param name="reader">The reader to read runs from the file.</param>
+            <param name="path">The path to the file containing the runs.</param>
+        </member>
+        <member name="M:nFire.Core.ITask`1.AddGroundTruths(System.Collections.Generic.IEnumerable{nFire.Core.IRun{`0}})">
+            <summary>
+            Adds the specified runs as ground truth.
+            </summary>
+            <param name="runs">The runs to add as ground truth.</param>
+        </member>
+        <member name="M:nFire.Core.ITask`1.AddGroundTruth(nFire.Core.IRun{`0})">
+            <summary>
+            Adds the specified run as ground truth.
+            </summary>
+            <param name="run">The run to add as ground truth.</param>
+        </member>
+        <member name="M:nFire.Core.ITask`1.AddSystemRuns(nFire.Core.IRunReader{`0},System.String)">
+            <summary>
+            Uses the specified reader to read runs from the specified file and adds them as system runs.
+            </summary>
+            <param name="reader">The reader to read runs from the file.</param>
+            <param name="path">The path to the file containing the runs.</param>
+        </member>
+        <member name="M:nFire.Core.ITask`1.AddSystemRuns(System.Collections.Generic.IEnumerable{nFire.Core.IRun{`0}})">
+            <summary>
+            Adds the specified runs as system runs.
+            </summary>
+            <param name="runs">The runs to add as system runs.</param>
+        </member>
+        <member name="M:nFire.Core.ITask`1.AddSystemRun(nFire.Core.IRun{`0})">
+            <summary>
+            Adds the specified run as system run.
+            </summary>
+            <param name="run">The run to add as system run.</param>
+        </member>
+        <member name="M:nFire.Core.ITask`1.Evaluate``1(nFire.Core.ISystem,nFire.Core.IQuery,nFire.Core.IEvaluator{``0,`0})">
+            <summary>
+            Evaluates the run of the specified system for the specified query according to the specified evaluator.
+            </summary>
+            <typeparam name="TScore">The type of score returned by the evaluator.</typeparam>
+            <param name="system">The system to evaluate.</param>
+            <param name="query">The query to evaluate.</param>
+            <param name="eval">The evaluator.</param>
+            <returns>The score returned by the evaluator.</returns>
+        </member>
+        <member name="M:nFire.Core.ITask`1.EvaluateAllSystems``1(nFire.Core.IQuery,nFire.Core.IEvaluator{``0,`0})">
+            <summary>
+            Evaluates all runs of the specified query according to the specified evaluator.
+            </summary>
+            <typeparam name="TScore">The type of score returned by the evaluator.</typeparam>
+            <param name="query">The query to evaluate.</param>
+            <param name="eval">The evaluator.</param>
+            <returns>The scores returned by the evaluator.</returns>
+        </member>
+        <member name="M:nFire.Core.ITask`1.EvaluateAllQueries``1(nFire.Core.ISystem,nFire.Core.IEvaluator{``0,`0})">
+            <summary>
+            Evaluates all runs of the specified system according to the specified evaluator.
+            </summary>
+            <typeparam name="TScore">The type of score returned by the evaluator.</typeparam>
+            <param name="system">The system to evaluate.</param>
+            <param name="eval">The evaluator.</param>
+            <returns>The scores returned by the evaluator.</returns>
+        </member>
+        <member name="M:nFire.Core.ITask`1.EvaluateAllSystems``1(nFire.Core.IEvaluator{``0,`0})">
+            <summary>
+            Evaluates all runs according to the specified evaluator.
+            </summary>
+            <typeparam name="TScore">The type of score returned by the evaluator.</typeparam>
+            <param name="eval">The evaluator.</param>
+            <returns>The scores returned by the evaluator.</returns>
+        </member>
+        <member name="M:nFire.Core.ITask`1.EvaluateAllQueries``1(nFire.Core.IEvaluator{``0,`0})">
+            <summary>
+            Evaluates all runs according to the specified evaluator.
+            </summary>
+            <typeparam name="TScore">The type of score returned by the evaluator.</typeparam>
+            <param name="eval">The evaluator.</param>
+            <returns>The scores returned by the evaluator.</returns>
+        </member>
+        <member name="P:nFire.Core.ITask`1.Name">
+            <summary>
+            Gets the name of the testbed.
+            </summary>
+        </member>
+        <member name="P:nFire.Core.ITask`1.Documents">
+            <summary>
+            Gets the document collection.
+            </summary>
+        </member>
+        <member name="P:nFire.Core.ITask`1.Queries">
+            <summary>
+            Gets the query collection.
+            </summary>
+        </member>
+        <member name="P:nFire.Core.ITask`1.Systems">
+            <summary>
+            Gets the system collection.
+            </summary>
+        </member>
+        <member name="T:nFire.Evaluators.Binary.FMeasure">
+            <summary>
+            An evaluator for F-measure and F-measure after k documents retrieved (F-measure@k).
+            For F-measure@k it is assumed that the results in the run are ordered by rank.
+            </summary>
+        </member>
+        <member name="M:nFire.Evaluators.Binary.FMeasure.#ctor(System.Double,System.Nullable{System.Int32},System.Double)">
+            <summary>
+            Creates an evaluator for F-measure and F-measure@k.
+            </summary>
+            <param name="minScore">The minimum score a judgment must have to be considered relevant.</param>
+            <param name="cutoff">The cut-off k for F-measure@k.</param>
+            <param name="beta">The beta coefficient.</param>
+        </member>
+        <member name="M:nFire.Evaluators.Binary.FMeasure.Evaluate(nFire.Core.IRun{nFire.Core.ISetResult},nFire.Core.IRun{nFire.Core.ISetResult})">
+            <summary>
+            Computes the F score of the specified run according to the specified ground truth.
+            </summary>
+            <param name="groundTruth">The ground truth.</param>
+            <param name="systemRun">The system run.</param>
+            <returns>The F score.</returns>
+        </member>
+        <member name="M:nFire.Evaluators.Binary.FMeasure.Evaluate(nFire.Core.IRun{nFire.Core.IListResult},nFire.Core.IRun{nFire.Core.IListResult})">
+            <summary>
+            Computes the F@k score of the specified run according to the specified ground truth.
+            It is assumed that the results in the run are ordered by rank.
+            </summary>
+            <param name="groundTruth">The ground truth.</param>
+            <param name="systemRun">The system run.</param>
+            <returns>The F@k score.</returns>
+        </member>
+        <member name="P:nFire.Evaluators.Binary.FMeasure.ShortName">
+            <summary>
+            Gets the abbreviated name of the evaluator: "F" or "F@k".
+            </summary>
+        </member>
+        <member name="P:nFire.Evaluators.Binary.FMeasure.FullName">
+            <summary>
+            Gets the full name of the evaluator: "F-measure" or "F-measure at k".
+            </summary>
+        </member>
+        <member name="P:nFire.Evaluators.Binary.FMeasure.MinScore">
+            <summary>
+            Gets and sets the minimum score a judgment must have to be considered relevant.
+            </summary>
+        </member>
+        <member name="P:nFire.Evaluators.Binary.FMeasure.Cutoff">
+            <summary>
+            Gets and sets the cut-off k for precision@k. If null, F-measure is computed, with not cut-off.
+            </summary>
+        </member>
+        <member name="P:nFire.Evaluators.Binary.FMeasure.Beta">
+            <summary>
+            Gets and sets the beta coefficient: the importance of recall with respect to precision.
+            </summary>
+        </member>
+        <member name="P:nFire.Evaluators.Binary.FMeasure.P">
+            <summary>
+            Gets and sets the auxiliary pecision evaluator to compute the f score.
+            </summary>
+        </member>
+        <member name="P:nFire.Evaluators.Binary.FMeasure.R">
+            <summary>
+            Gets and sets the auxiliary recall evaluator to compute the f score.
+            </summary>
+        </member>
+        <member name="T:nFire.Base.Task`1">
+            <summary>
+            A base task.
+            </summary>
+        </member>
+        <member name="M:nFire.Base.Task`1.#ctor(System.String,nFire.Core.IItemCollection{nFire.Core.IDocument},nFire.Core.IItemCollection{nFire.Core.IQuery},nFire.Core.IItemCollection{nFire.Core.ISystem})">
+            <summary>
+            Creates a new base task with the specified name and collections of documents, queries and systems.
+            </summary>
+            <param name="name">The name of the task.</param>
+            <param name="dCol">The document collection.</param>
+            <param name="qCol">The query collection.</param>
+            <param name="sCol">The system collection.</param>
+        </member>
+        <member name="M:nFire.Base.Task`1.#ctor">
+            <summary>
+            Creates a new base task with base collections of documents, queries and systems.
+            </summary>
+        </member>
+        <member name="M:nFire.Base.Task`1.AddGroundTruths(nFire.Core.IRunReader{`0},System.String)">
+            <summary>
+            Uses the specified reader to read runs from the specified file and adds them as ground truth .
+            </summary>
+            <param name="reader">The reader to read runs from the file.</param>
+            <param name="path">The path to the file containing the runs.</param>
+        </member>
+        <member name="M:nFire.Base.Task`1.AddGroundTruths(System.Collections.Generic.IEnumerable{nFire.Core.IRun{`0}})">
+            <summary>
+            Adds the specified runs as ground truth.
+            </summary>
+            <param name="runs">The runs to add as ground truth.</param>
+        </member>
+        <member name="M:nFire.Base.Task`1.AddGroundTruth(nFire.Core.IRun{`0})">
+            <summary>
+            Adds the specified run as ground truth.
+            </summary>
+            <param name="run">The run to add as ground truth.</param>
+        </member>
+        <member name="M:nFire.Base.Task`1.AddSystemRuns(nFire.Core.IRunReader{`0},System.String)">
+            <summary>
+            Uses the specified reader to read runs from the specified file and adds them as system runs.
+            </summary>
+            <param name="reader">The reader to read runs from the file.</param>
+            <param name="path">The path to the file containing the runs.</param>
+        </member>
+        <member name="M:nFire.Base.Task`1.AddSystemRuns(System.Collections.Generic.IEnumerable{nFire.Core.IRun{`0}})">
+            <summary>
+            Adds the specified runs as system runs.
+            </summary>
+            <param name="runs">The runs to add as system runs.</param>
+        </member>
+        <member name="M:nFire.Base.Task`1.AddSystemRun(nFire.Core.IRun{`0})">
+            <summary>
+            Adds the specified run as system run.
+            </summary>
+            <param name="run">The run to add as system run.</param>
+        </member>
+        <member name="M:nFire.Base.Task`1.Evaluate``1(nFire.Core.ISystem,nFire.Core.IQuery,nFire.Core.IEvaluator{``0,`0})">
+            <summary>
+            Evaluates the run of the specified system for the specified query, according to the specified evaluator.
+            </summary>
+            <typeparam name="TScore">The type of score returned by the evaluator.</typeparam>
+            <param name="system">The system to evaluate.</param>
+            <param name="query">The query to evaluate.</param>
+            <param name="eval">The evaluator.</param>
+            <returns>The score returned by the evaluator.</returns>
+        </member>
+        <member name="M:nFire.Base.Task`1.EvaluateAllSystems``1(nFire.Core.IQuery,nFire.Core.IEvaluator{``0,`0})">
+            <summary>
+            Evaluates all runs of the specified query according to the specified evaluator.
+            </summary>
+            <typeparam name="TScore">The type of score returned by the evaluator.</typeparam>
+            <param name="query">The query to evaluate.</param>
+            <param name="eval">The evaluator.</param>
+            <returns>The scores returned by the evaluator.</returns>
+        </member>
+        <member name="M:nFire.Base.Task`1.EvaluateAllQueries``1(nFire.Core.ISystem,nFire.Core.IEvaluator{``0,`0})">
+            <summary>
+            Evaluates all runs of the specified system according to the specified evaluator.
+            </summary>
+            <typeparam name="TScore">The type of score returned by the evaluator.</typeparam>
+            <param name="system">The system to evaluate.</param>
+            <param name="eval">The evaluator.</param>
+            <returns>The scores returned by the evaluator.</returns>
+        </member>
+        <member name="M:nFire.Base.Task`1.EvaluateAllSystems``1(nFire.Core.IEvaluator{``0,`0})">
+            <summary>
+            Evaluates all runs according to the specified evaluator.
+            </summary>
+            <typeparam name="TScore">The type of score returned by the evaluator.</typeparam>
+            <param name="eval">The evaluator.</param>
+            <returns>The scores returned by the evaluator.</returns>
+        </member>
+        <member name="M:nFire.Base.Task`1.EvaluateAllQueries``1(nFire.Core.IEvaluator{``0,`0})">
+            <summary>
+            Evaluates all runs according to the specified evaluator.
+            </summary>
+            <typeparam name="TScore">The type of score returned by the evaluator.</typeparam>
+            <param name="eval">The evaluator.</param>
+            <returns>The scores returned by the evaluator.</returns>
+        </member>
+        <member name="P:nFire.Base.Task`1.Name">
+            <summary>
+            Gets the name of the task.
+            </summary>
+        </member>
+        <member name="P:nFire.Base.Task`1.Documents">
+            <summary>
+            Gets the document collection.
+            </summary>
+        </member>
+        <member name="P:nFire.Base.Task`1.Queries">
+            <summary>
+            Gets the query collection.
+            </summary>
+        </member>
+        <member name="P:nFire.Base.Task`1.Systems">
+            <summary>
+            Gets the system collection.
+            </summary>
+        </member>
+        <member name="P:nFire.Base.Task`1.GroundTruthsByQuery">
+            <summary>
+            The ground truth runs, indexed by query ID.
+            </summary>
+            <remarks>query->run</remarks>
+        </member>
+        <member name="P:nFire.Base.Task`1.RunsBySystem">
+            <summary>
+            The system runs, indexed by system and query.
+            </summary>
+            <remarks>system->query->run</remarks>
+        </member>
+        <member name="P:nFire.Base.Task`1.RunsByQuery">
+            <summary>
+            The system runs, indexed by query and system.
+            </summary>
+            <remarks>query->system->run</remarks>
+        </member>
+    </members>
+</doc>

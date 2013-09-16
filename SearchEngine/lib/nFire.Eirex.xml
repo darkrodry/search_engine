@@ -1,0 +1,200 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>nFire.Eirex</name>
+    </assembly>
+    <members>
+        <member name="T:nFire.Eirex.Document">
+            <summary>
+            An EIREX document.
+            </summary>
+        </member>
+        <member name="M:nFire.Eirex.Document.#ctor(System.String,System.String)">
+            <summary>
+            Creates a new EIREX document with the specified ID and from a directory-based collection.
+            </summary>
+            <param name="id">The ID of the new document.</param>
+            <param name="path">The path to the file containing the document.</param>
+        </member>
+        <member name="M:nFire.Eirex.Document.#ctor(System.String,System.String,System.Int64,System.Int32)">
+            <summary>
+            Creates a new EIREX document with the specified ID and from a TAR-based collection.
+            </summary>
+            <param name="id">The ID of the new document.</param>
+            <param name="path">The path to the TAR archive containing the collection.</param>
+            <param name="offset">The byte offset within the TAR archive where the document starts.</param>
+            <param name="size">The byte size of the document content.</param>
+        </member>
+        <member name="P:nFire.Eirex.Document.Path">
+            <summary>
+            Gets or sets the path to the collection, either a directory or a TAR archive.
+            </summary>
+        </member>
+        <member name="P:nFire.Eirex.Document.Offset">
+            <summary>
+            Gets or sets the byte offset within the TAR archive where the document content starts.
+            </summary>
+            <remarks>Only used with TAR-based document collections.</remarks>
+        </member>
+        <member name="P:nFire.Eirex.Document.Size">
+            <summary>
+            Gets or sets the byte size of the document content.
+            </summary>
+            <remarks>Only used with TAR-based document collections.</remarks>
+        </member>
+        <member name="P:nFire.Eirex.Document.Contents">
+            <summary>
+            Gets the contents of the document.
+            </summary>
+        </member>
+        <member name="T:nFire.Eirex.DocumentCollection">
+            <summary>
+            A collection of EIREX documents.
+            </summary>
+        </member>
+        <member name="M:nFire.Eirex.DocumentCollection.#ctor(System.String)">
+            <summary>
+            Creates a new collection of EIREX documents from the specified path.
+            </summary>
+            <param name="pathToDocuments">The path to the collection: either the directory under which all documents are, or a TAR file with all documents archived.</param>
+        </member>
+        <member name="P:nFire.Eirex.DocumentCollection.Item(System.String)">
+            <summary>
+            Gets the document with the specified ID.
+            </summary>
+            <param name="id">The ID of the document to get.</param>
+            <returns>The document with the specified ID.</returns>
+        </member>
+        <member name="T:nFire.Eirex.DocumentCollection.TarStream">
+            <summary>
+            Extension of the ICSharpCode.SharpZipLib.Tar.TarInputStream to provide the real byte position of a TarEntry.
+            The original implementation uses a buffer, so the Position provided is the position by the end of the buffer, not the TarEntry position.
+            </summary>
+        </member>
+        <member name="M:nFire.Eirex.DocumentCollection.TarStream.#ctor(System.IO.Stream)">
+            <summary>
+            Creates a new TAR input stream from the specified stream.
+            </summary>
+            <param name="stream">The stream of the TAR archive.</param>
+        </member>
+        <member name="P:nFire.Eirex.DocumentCollection.TarStream.RealPosition">
+            <summary>
+            Gets the byte position of the TAR stream.
+            </summary>
+        </member>
+        <member name="T:nFire.Eirex.Task">
+            <summary>
+            An EIREX task.
+            </summary>
+        </member>
+        <member name="M:nFire.Eirex.Task.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Creates a new EIREX task with the specified name and paths to document collection and topic definitions
+            </summary>
+            <param name="name">The name of the new task.</param>
+            <param name="pathToDocuments">The path to the collection: either the directory under which all documents are, or a TAR file with all documents archived.</param>
+            <param name="pathToTopics">The path to the topic definition file.</param>
+        </member>
+        <member name="M:nFire.Eirex.Task.AddGroundTruths(System.String)">
+            <summary>
+            Reads runs in EIREX format from the specified file and adds them as ground truth.
+            </summary>
+            <param name="path">The path to the file containing the runs.</param>
+        </member>
+        <member name="M:nFire.Eirex.Task.AddSystemRuns(System.String)">
+            <summary>
+            Reads runs in EIREX format from the specified file and adds them as system runs.
+            </summary>
+            <param name="path">The path to the file containing the runs.</param>
+        </member>
+        <member name="P:nFire.Eirex.Task.Formatter">
+            <summary>
+            An EIREX formatter to read trels and system runs.
+            </summary>
+        </member>
+        <member name="T:nFire.Eirex.Formatter">
+            <summary>
+            Reads and writes runs in EIREX format.
+            It is assumed that the results are ordered by rank.
+            </summary>
+        </member>
+        <member name="M:nFire.Eirex.Formatter.Read(System.String,nFire.Core.ITask{nFire.Core.IListResult})">
+            <summary>
+            Reads run from the specified file.
+            </summary>
+            <param name="path">The path to the file to read from.</param>
+            <param name="task">The task containing the documents, queries and systems.</param>
+            <returns>An enumerable with the runs read.</returns>
+        </member>
+        <member name="M:nFire.Eirex.Formatter.Read(System.IO.Stream,nFire.Core.ITask{nFire.Core.IListResult})">
+            <summary>
+            Reads runs from the specified stream.
+            </summary>
+            <param name="stream">The stream to read from.</param>
+            <param name="task">The task containing the documents, queries and systems.</param>
+            <returns>An enumerable with the runs read.</returns>
+        </member>
+        <member name="M:nFire.Eirex.Formatter.Write(System.Collections.Generic.IEnumerable{nFire.Core.IRun{nFire.Core.IListResult}},System.String)">
+            <summary>
+            Writes the specified runs to the specified file.
+            </summary>
+            <param name="runs">The runs to write.</param>
+            <param name="path">The path to the file.</param>
+        </member>
+        <member name="M:nFire.Eirex.Formatter.Write(System.Collections.Generic.IEnumerable{nFire.Core.IRun{nFire.Core.IListResult}},System.IO.Stream)">
+            <summary>
+            Writes the specified runs to the specified file.
+            </summary>
+            <param name="runs">The runs to write.</param>
+            <param name="stream">The path to the file.</param>
+        </member>
+        <member name="T:nFire.Eirex.Topic">
+            <summary>
+            An EIREX topic.
+            </summary>
+        </member>
+        <member name="M:nFire.Eirex.Topic.#ctor(System.String,System.String,System.Collections.Generic.Dictionary{System.Int32,System.String})">
+            <summary>
+            Creates a new EIREX topic with the specified D, title and relevance definition.
+            </summary>
+            <param name="id">The ID of the new topic.</param>
+            <param name="title">The title of the new topic.</param>
+            <param name="relevance">The relevance definition of the new topic.</param>
+        </member>
+        <member name="M:nFire.Eirex.Topic.Deserialize(System.Xml.XmlReader)">
+            <summary>
+            Deserializes a new topic from the specified XmlReader.
+            </summary>
+            <param name="reader">The XmlReader to read from.</param>
+            <returns>The new desserialized topic.</returns>
+        </member>
+        <member name="P:nFire.Eirex.Topic.Title">
+            <summary>
+            Gets or sets the topic title.
+            </summary>
+        </member>
+        <member name="P:nFire.Eirex.Topic.Relevance">
+            <summary>
+            Gets or sets the relevance definition of the topic.
+            </summary>
+        </member>
+        <member name="T:nFire.Eirex.TopicCollection">
+            <summary>
+            A collection of EIREX topics.
+            </summary>
+        </member>
+        <member name="M:nFire.Eirex.TopicCollection.#ctor(System.String)">
+            <summary>
+            Creates a new collection of EIREX topics as per the specified topic file.
+            </summary>
+            <param name="pathToTopics">The path to the topic definition file.</param>
+        </member>
+        <member name="P:nFire.Eirex.TopicCollection.Item(System.String)">
+            <summary>
+            Gets the topic with the specified ID.
+            </summary>
+            <param name="id">The ID of the topic to get.</param>
+            <returns>The topic with the specified ID.</returns>
+        </member>
+    </members>
+</doc>

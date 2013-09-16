@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="db" EntityNamespace="RAI.Crawler.Data" ContextNamespace="RAI.Crawler.Data" Class="DataAdapterDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\db.mdf;Integrated Security=True;Connect Timeout=30;User Instance=True" SettingsObjectName="RAI.Crawler.Properties.Settings" SettingsPropertyName="dbConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Uri" Member="DataUri">
+    <Type Name="DataUri">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AbsoluteUri" Type="System.String" DbType="VarChar(1000) NOT NULL" CanBeNull="false" />
+      <Column Name="Parent" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Cache" Type="System.String" DbType="Char(11)" CanBeNull="true" />
+      <Column Name="Status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="Uri_Uri" Member="DataUri1" ThisKey="Id" OtherKey="Parent" Type="DataUri" />
+      <Association Name="Uri_Uri" Member="ParentUri" ThisKey="Parent" OtherKey="Id" Type="DataUri" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
